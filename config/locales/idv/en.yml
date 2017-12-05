@@ -34,6 +34,8 @@ en:
         personal_key: 'Please enter your personal key for this account. Example: ABC1-DEF2-G3HI-J456'
         ssn: 'Your Social Security Number must be entered in as ###-##-####'
         zipcode: 'Your zipcode must be entered in as #####-####'
+      unsupported_jurisdiction: Sorry, we don't currently verify anyone from this
+        state
     form:
       activate_by_mail: Activate my account by mail.
       address1: Street address 1
@@ -57,6 +59,7 @@ en:
       select_financial_account: Select a financial account…
       ssn_label_html: Social Security Number %{tooltip}
       state: State
+      state_id: Identification number
       use_ccn: Provide credit card number >
       use_financial_account: Don't have a credit card?
       zipcode: ZIP Code

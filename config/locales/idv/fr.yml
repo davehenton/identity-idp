@@ -39,6 +39,7 @@ fr:
         ssn: 'Votre numéro de sécurité sociale doit être inscrit de cette façon :
           ###-##-####'
         zipcode: 'Votre code ZIP doit être inscrit de cette façon : #####-####'
+      unsupported_jurisdiction: NOT TRANSLATED YET
     form:
       activate_by_mail: Activer mon compte par la poste.
       address1: Adresse 1
@@ -62,6 +63,7 @@ fr:
       select_financial_account: Sélectionnez un compte bancaire…
       ssn_label_html: Numéro de sécurité sociale %{tooltip}
       state: État
+      state_id: NOT TRANSLATED YET
       use_ccn: Fournissez un numéro de carte de crédit
       use_financial_account: Vous n'avez pas de carte de crédit?
       zipcode: Code ZIP

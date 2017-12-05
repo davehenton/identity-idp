@@ -78,7 +78,7 @@ describe Idv::FinanceForm do
     context 'any non-ccn financial value is less than the minimum allowed digits' do
       it 'returns an unsuccessful form response' do
         finance_types = Idv::FinanceForm::FINANCE_TYPES
-        short_value = '1' * (FormFinanceValidator::VALID_MINIMUM_LENGTH - 1)
+        short_value = '1' * (Idv::FormFinanceValidator::VALID_MINIMUM_LENGTH - 1)
 
         finance_types.each do |type|
           next if type == :ccn
@@ -89,8 +89,8 @@ describe Idv::FinanceForm do
           expect(result.success?).to eq(false)
           expect(result.errors[type]).to eq([t(
             'idv.errors.finance_number_length',
-            minimum: FormFinanceValidator::VALID_MINIMUM_LENGTH,
-            maximum: FormFinanceValidator::VALID_MAXIMUM_LENGTH
+            minimum: Idv::FormFinanceValidator::VALID_MINIMUM_LENGTH,
+            maximum: Idv::FormFinanceValidator::VALID_MAXIMUM_LENGTH
           )])
         end
       end
@@ -99,7 +99,7 @@ describe Idv::FinanceForm do
     context 'any non-ccn financial value is over the max allowed digits' do
       it 'returns an unsuccessful form response' do
         finance_types = Idv::FinanceForm::FINANCE_TYPES
-        long_value = '1' * (FormFinanceValidator::VALID_MAXIMUM_LENGTH + 1)
+        long_value = '1' * (Idv::FormFinanceValidator::VALID_MAXIMUM_LENGTH + 1)
 
         finance_types.each do |type|
           next if type == :ccn
@@ -114,8 +114,8 @@ describe Idv::FinanceForm do
           expect(result.success?).to eq(false)
           expect(result.errors[symbolized_type]).to eq([t(
             'idv.errors.finance_number_length',
-            minimum: FormFinanceValidator::VALID_MINIMUM_LENGTH,
-            maximum: FormFinanceValidator::VALID_MAXIMUM_LENGTH
+            minimum: Idv::FormFinanceValidator::VALID_MINIMUM_LENGTH,
+            maximum: Idv::FormFinanceValidator::VALID_MAXIMUM_LENGTH
           )])
         end
       end

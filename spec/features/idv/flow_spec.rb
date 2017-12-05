@@ -284,15 +284,15 @@ feature 'IdV session', idv_job: true do
       click_link t('idv.form.use_financial_account')
 
       select t('idv.form.mortgage'), from: 'idv_finance_form_finance_type'
-      short_value = '1' * (FormFinanceValidator::VALID_MINIMUM_LENGTH - 1)
+      short_value = '1' * (Idv::FormFinanceValidator::VALID_MINIMUM_LENGTH - 1)
       fill_in :idv_finance_form_mortgage, with: short_value
       click_button t('forms.buttons.continue')
 
       expect(page).to have_content(
         t(
           'idv.errors.finance_number_length',
-          minimum: FormFinanceValidator::VALID_MINIMUM_LENGTH,
-          maximum: FormFinanceValidator::VALID_MAXIMUM_LENGTH
+          minimum: Idv::FormFinanceValidator::VALID_MINIMUM_LENGTH,
+          maximum: Idv::FormFinanceValidator::VALID_MAXIMUM_LENGTH
         )
       )
     end
