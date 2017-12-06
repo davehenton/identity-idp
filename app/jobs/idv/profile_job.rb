@@ -5,10 +5,10 @@ module Idv
     def verify_identity_with_vendor
       self.resolution = resolution_agent.start(vendor_params)
 
-      return store_failed_resolution_result unless resolution.success?
+      return store_result unless resolution.success?
 
       self.confirmation = confirmation_agent.submit_state_id(state_id_vendor_params)
-      store_combined_result
+      store_result
     end
 
     private
@@ -48,24 +48,12 @@ module Idv
       vendor_params.merge(state_id_jurisdiction: vendor_params[:state])
     end
 
-    def store_combined_result
+    def store_result
       resolution_vendor_resp = resolution.vendor_resp
       result = Idv::VendorResult.new(
         success: result_successful?,
         errors: result_errors,
         reasons: result_reasons,
-        normalized_applicant: resolution_vendor_resp.normalized_applicant,
-        session_id: resolution.session_id
-      )
-      store_result(result)
-    end
-
-    def store_failed_resolution_result
-      resolution_vendor_resp = resolution.vendor_resp
-      result = Idv::VendorResult.new(
-        success: resolution.success?,
-        errors: resolution.errors,
-        reasons: resolution_vendor_resp.reasons,
         normalized_applicant: resolution_vendor_resp.normalized_applicant,
         session_id: resolution.session_id
       )
