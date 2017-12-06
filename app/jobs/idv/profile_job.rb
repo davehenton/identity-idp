@@ -3,12 +3,12 @@ module Idv
     attr_accessor :resolution, :confirmation
 
     def verify_identity_with_vendor
-      self.resolution = resolution_agent.start(vendor_params)
+      self.resolution = resolution_agent.start(vendor_params_hash)
 
-      return store_result unless resolution.success?
+      return build_and_store_result unless resolution.success?
 
       self.confirmation = confirmation_agent.submit_state_id(state_id_vendor_params)
-      store_result
+      build_and_store_result
     end
 
     private
@@ -45,10 +45,10 @@ module Idv
     end
 
     def state_id_vendor_params
-      vendor_params.merge(state_id_jurisdiction: vendor_params[:state])
+      vendor_params_hash.merge(state_id_jurisdiction: vendor_params_hash[:state])
     end
 
-    def store_result
+    def build_and_store_result
       resolution_vendor_resp = resolution.vendor_resp
       result = Idv::VendorResult.new(
         success: result_successful?,
@@ -58,6 +58,10 @@ module Idv
         session_id: resolution.session_id
       )
       store_result(result)
+    end
+
+    def vendor_params_hash
+      vendor_params.with_indifferent_access
     end
   end
 end

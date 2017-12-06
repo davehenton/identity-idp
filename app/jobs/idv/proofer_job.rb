@@ -2,7 +2,7 @@ module Idv
   class ProoferJob < ApplicationJob
     queue_as :idv
 
-    attr_reader :result_id, :applicant, :vendor_session_id
+    attr_reader :result_id, :applicant, :vendor_params, :vendor_session_id
 
     def perform(result_id:, vendor_params:, applicant_json:, vendor_session_id: nil)
       @result_id = result_id
@@ -51,11 +51,6 @@ module Idv
 
     def store_result(vendor_result)
       VendorValidatorResultStorage.new.store(result_id: result_id, result: vendor_result)
-    end
-
-    def vendor_params
-      return @vendor_params.with_indifferent_access if @vendor_params.is_a? Hash
-      @vendor_params
     end
   end
 end
