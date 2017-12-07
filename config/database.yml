@@ -5,7 +5,7 @@ postgresql: &postgresql
   port: 5432
 
 defaults: &defaults
-  pool: 5
+  pool: <%= (File.exist?('/etc/login.gov/info') && File.read('/etc/login.gov/info/role').chomp == 'worker') ? 26 : 5 %>
   host: localhost
   <<: *postgresql
   # timeout settings
